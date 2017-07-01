@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
+const port = process.env.PORT || 3001
 
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,6 +17,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
-app.listen(3001, function() {
-  console.log('listening on 3001')
+app.listen(port, function() {
+  console.log(`listening on ${port}`)
 })
