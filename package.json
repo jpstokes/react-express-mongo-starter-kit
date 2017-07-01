@@ -5,7 +5,6 @@
   "scripts": {
     "start": "node ./bin/www",
     "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
-}
   },
   "dependencies": {
     "body-parser": "~1.17.1",
