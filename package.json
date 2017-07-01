@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
+    "start": "concurrently \"node server.js\" \"cd client && npm start\"",
     "heroku-postbuild": "cd client && yarn --production=false && yarn run build",
     "dev": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
+    "concurrently": "^3.5.0",
     "dotenv": "^4.0.0",
     "express": "~4.15.2",
     "mongodb": "^2.2.29",
