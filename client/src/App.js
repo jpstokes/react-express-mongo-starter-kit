@@ -19,20 +19,22 @@ const UserForm = (props) => (
 )
 
 const UserList = (props) => {
-  if (props.users.length !== 0) {
-    const users = props.users.map(user =>
+  const users = props.users.map(user =>
       <ul key={user._id}>
         <li>{user.firstName} {user.lastName}</li>
         <li>{user.username}</li>
         <li>{user.email}</li>
         <li onClick={props.deleteUser(user)}>Delete</li>
       </ul>
-    )
+  )
+  if (props.users.length !== 0) {
     return (
-      <div>
-        <h2>User List</h2>
-        {users}
-      </div>
+      <Row>
+        <Col>
+          <h2>User List</h2>
+          <div>{users}</div>
+        </Col>
+      </Row>
     );
   } else {
     return null;
