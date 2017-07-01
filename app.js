@@ -3,6 +3,9 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var mongo = require('mongodb');
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://localhost/blackbusinessfinder';
 
 var index = require('./routes/index');
 var users = require('./routes/api/v1/users');
@@ -15,7 +18,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Serve static files from the React app
+mongoose.connect(mongoDB);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use('/api/v1/users', users);
