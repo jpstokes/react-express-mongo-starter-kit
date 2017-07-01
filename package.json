@@ -3,21 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
     "start": "concurrently \"yarn run dev\" \"cd client && npm start\"",
-=======
-    "start": "concurrently \"node server.js\" \"cd client && npm start\"",
->>>>>>> 2ca91720eaa31c65dafc20dc40328eed8258c217
     "heroku-postbuild": "cd client && yarn --production=false && yarn run build",
     "dev": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
-<<<<<<< HEAD
-    "concurrent": "^0.3.2",
-=======
     "concurrently": "^3.5.0",
->>>>>>> 2ca91720eaa31c65dafc20dc40328eed8258c217
     "dotenv": "^4.0.0",
     "express": "~4.15.2",
     "mongodb": "^2.2.29",
