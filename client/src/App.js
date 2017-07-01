@@ -16,14 +16,21 @@ class App extends Component {
       .then(users => this.setState({ users }));
   }
 
+  clearForm = () => {
+    document.getElementById('userForm').reset();
+  }
+
   saveUser = () => {
     axios.post('/api/v1/users', {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       username: this.state.username,
       email: this.state.email
-    });
-    this.getUsers();
+    })
+      .then(res => {
+        this.clearForm();
+        this.getUsers();
+      });
   }
 
   stateHandler = (e) => {
@@ -33,19 +40,35 @@ class App extends Component {
     this.setState(changeState);
   }
 
+  deleteUser = (delUser) => () => {
+    var users = this.state.users.filter((user) => {
+      return delUser._id !== user._id;
+    });
+
+    axios.delete('/api/v1/users/' + delUser._id)
+      .then(res => {
+        this.getUsers();
+      });
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Users</h1>
-        <form method="POST">
+        <form id="userForm" method="POST">
           <input type="text" placeholder="First name" onChange={this.stateHandler} name="firstName"/>
           <input type="text" placeholder="Last name" onChange={this.stateHandler} name="lastName"/>
-          <input type="text" placeholder="Username" onChange={this.stateHandler} name="username"/>
+          <input type="text" placeholder="Username" onChange={this.stateHandler}  name="username"/>
           <input type="email" placeholder="Email" onChange={this.stateHandler} name="email"/>
           <button type="button" onClick={this.saveUser}>Submit</button>
         </form>
         {this.state.users.map(user =>
-          <div key={user._id}>{user.firstName} {user.lastName} {user.username} {user.email}</div>
+          <ul key={user._id}>
+            <li>{user.firstName} {user.lastName}</li>
+            <li>{user.username}</li>
+            <li>{user.email}</li>
+            <li onClick={this.deleteUser(user)}>Delete</li>
+          </ul>
         )}
       </div>
     );
