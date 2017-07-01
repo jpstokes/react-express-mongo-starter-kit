@@ -221,6 +221,10 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
+concurrent@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/concurrent/-/concurrent-0.3.2.tgz#0eaa0011a15798c56351128f22247f6e2317f50e"
+
 configstore@^1.0.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/configstore/-/configstore-1.4.0.tgz#c35781d0501d268c25c54b8b17f6240e8a4fb021"
