@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -6,9 +8,9 @@ const userRoutes = require('./routes/userRoutes');
 
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
+
+// routes
 app.use('/', userRoutes);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));

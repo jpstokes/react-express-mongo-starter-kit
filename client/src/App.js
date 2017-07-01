@@ -10,14 +10,21 @@ class App extends Component {
     this.getUsers()
   }
 
+  clearForm = () => {
+    document.getElementById('userForm').reset();
+  }
+
+  stateHandler = (e) => {
+    let key = e.target.name;
+    let changeState = Object.assign({}, this.state)
+    changeState[key] = e.target.value;
+    this.setState(changeState);
+  }
+
   getUsers = () => {
     fetch('/api/v1/users')
       .then(res => res.json())
       .then(users => this.setState({ users }));
-  }
-
-  clearForm = () => {
-    document.getElementById('userForm').reset();
   }
 
   saveUser = () => {
@@ -33,18 +40,7 @@ class App extends Component {
       });
   }
 
-  stateHandler = (e) => {
-    let key = e.target.name;
-    let changeState = Object.assign({}, this.state)
-    changeState[key] = e.target.value;
-    this.setState(changeState);
-  }
-
   deleteUser = (delUser) => () => {
-    var users = this.state.users.filter((user) => {
-      return delUser._id !== user._id;
-    });
-
     axios.delete('/api/v1/users/' + delUser._id)
       .then(res => {
         this.getUsers();
