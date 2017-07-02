@@ -7,34 +7,44 @@ import { Grid, Row, Col } from 'react-bootstrap';
 const UserForm = (props) => (
   <form id="userForm" method="POST">
     <Row>
-      <Col xs={3}><input type="text" className="form-control" placeholder="First name" onChange={props.stateHandler} name="firstName"/></Col>
-      <Col xs={3}><input type="text" className="form-control" placeholder="Last name" onChange={props.stateHandler} name="lastName"/></Col>
-      <Col xs={2}><input type="text" className="form-control" placeholder="Username" onChange={props.stateHandler}  name="username"/></Col>
-      <Col xs={2}><input type="email" className="form-control" placeholder="Email" onChange={props.stateHandler} name="email"/></Col>
-      <Col xs={2}>
-        <button type="button" className="form-control" onClick={props.saveUser}>Submit</button>
+      <Col xs={6}><input type="text" className="form-control" placeholder="First name" onChange={props.stateHandler} name="firstName"/></Col>
+      <Col xs={6}><input type="text" className="form-control" placeholder="Last name" onChange={props.stateHandler} name="lastName"/></Col>
+    </Row>
+    <Row>
+      <Col xs={6}><input type="text" className="form-control" placeholder="Username" onChange={props.stateHandler}  name="username"/></Col>
+      <Col xs={6}><input type="email" className="form-control" placeholder="Email" onChange={props.stateHandler} name="email"/></Col>
+    </Row>
+    <Row>
+      <Col xs={6}>
+        <button type="button" className="form-control btn btn-primary" onClick={props.saveUser}>Submit</button>
       </Col>
     </Row>
   </form>
 )
 
+const UserRow = (props) => (
+  <tr key={props._id}>
+    <td>{props.firstName} {props.lastName}</td>
+    <td>{props.propsname}</td>
+    <td>{props.email}</td>
+    <td onClick={props.deleteUser(props)}>Delete</td>
+  </tr>
+)
+
 const UserList = (props) => {
-  const users = props.users.map(user =>
-      <ul key={user._id}>
-        <li>{user.firstName} {user.lastName}</li>
-        <li>{user.username}</li>
-        <li>{user.email}</li>
-        <li onClick={props.deleteUser(user)}>Delete</li>
-      </ul>
+  const userRows = props.users.map(user =>
+    <UserRow {...user} deleteUser={props.deleteUser}/>
   )
   if (props.users.length !== 0) {
     return (
-      <Row>
-        <Col>
-          <h2>User List</h2>
-          <div>{users}</div>
-        </Col>
-      </Row>
+      <div>
+        <h2>User List</h2>
+        <table className="table table-striped">
+          <tbody>
+            {userRows}
+          </tbody>
+        </table>
+      </div>
     );
   } else {
     return null;
